@@ -1,5 +1,5 @@
 # AI-Native-Programing
-chat gpt와 함께 하는 Local LLM 채팅 게임 (TRPG)
+chat gpt와 함께 하는 Local LLM 기반의 MUD 채팅 게임 (TRPG)
 
 1단계 Local LLM 구축
 
