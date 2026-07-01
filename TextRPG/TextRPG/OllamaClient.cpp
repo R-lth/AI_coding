@@ -1,11 +1,23 @@
 ﻿#include "OllamaClient.h"
+
 #include <cpr/cpr.h>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 std::string OllamaClient::Generate(const std::string& prompt)
 {
+    json requestBody =
+    {
+        {"model", "qwen2.5:3b"},
+        {"prompt", prompt},
+        {"stream", false}
+    };
+
     cpr::Response response = cpr::Post(
         cpr::Url{ "http://localhost:11434/api/generate" },
-        cpr::Body{ "{}" }
+        cpr::Header{ {"Content-Type", "application/json; charset=utf-8"} },
+        cpr::Body{ requestBody.dump() }
     );
 
     if (response.error)
@@ -13,5 +25,12 @@ std::string OllamaClient::Generate(const std::string& prompt)
         return "Ollama 연결 실패";
     }
 
-    return response.text;
+    json responseJson = json::parse(response.text);
+
+    if (!responseJson.contains("response"))
+    {
+        return "response 값 없음";
+    }
+
+    return responseJson["response"].get<std::string>();
 }
