@@ -132,9 +132,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="OllamaClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="OllamaClient.h" />
   </ItemGroup>
   <ItemGroup>

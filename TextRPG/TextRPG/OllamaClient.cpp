@@ -25,12 +25,29 @@ std::string OllamaClient::Generate(const std::string& prompt)
         return "Ollama 연결 실패";
     }
 
-    json responseJson = json::parse(response.text);
-
-    if (!responseJson.contains("response"))
+    if (response.status_code >= 400)
     {
-        return "response 값 없음";
+        return "Ollama 서버 응답 오류";
     }
 
-    return responseJson["response"].get<std::string>();
+    if (response.text.empty())
+    {
+        return "응답이 비어 있습니다";
+    }
+
+    try
+    {
+        json responseJson = json::parse(response.text);
+
+        if (!responseJson.contains("response"))
+        {
+            return "response 값 없음";
+        }
+
+        return responseJson["response"].get<std::string>();
+    }
+    catch (const json::parse_error&)
+    {
+        return "응답 파싱 실패";
+    }
 }
