@@ -13,7 +13,12 @@ FetchContent_Declare(
     GIT_TAG 1.11.0
 )
 
-FetchContent_MakeAvailable(cpr)
+FetchContent_Declare(
+    json
+    URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
+)
+
+FetchContent_MakeAvailable(cpr json)
 
 add_executable(TextRPG
     main.cpp
@@ -23,4 +28,5 @@ add_executable(TextRPG
 target_link_libraries(TextRPG
     PRIVATE
     cpr::cpr
+    nlohmann_json::nlohmann_json
 )
